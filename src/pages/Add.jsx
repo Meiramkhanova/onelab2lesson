@@ -48,6 +48,7 @@ export default function Add() {
 
   return (
     <StyledContainer>
+      <h1>Add Form</h1>
       <Input
         value={name}
         onChange={handleNameChange}
