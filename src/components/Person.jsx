@@ -1,29 +1,58 @@
 import styled from "styled-components";
+import EditForm from "./EditForm";
 
-// Задание: Добавить стилизацию(желательно сделать список людей в виде таблицы),
-// 	добавить функционал удаления человека.Доп.задание - сделать редактирование информации о человеке
-
-export default function Person({ person, onDelete }) {
+export default function Person({
+  person,
+  onDelete,
+  onEdit,
+  cancelEdit,
+  isEditing,
+  onClickEdit,
+}) {
   const handleDelete = () => {
     onDelete(person.id);
   };
 
+  const handleEdit = () => {
+    onEdit(person.id);
+  };
+
+  const handleCancelEdit = () => {
+    cancelEdit(person.id);
+  };
+
   return (
-    <StyledContainer vip={person.name === "name"}>
-      <p>{person.name}</p>
-      <p>{person.surname}</p>
-      <p>{person.phone}</p>
-      <Button onClick={handleDelete}>Delete</Button>
-    </StyledContainer>
+    <tr>
+      <td>{person.name}</td>
+      <td>{person.surname}</td>
+      <td>{person.phone}</td>
+      <td style={{ width: "12%" }}>
+        {isEditing ? (
+          <EditForm
+            person={person}
+            onClickEdit={onClickEdit}
+            handleCancelEdit={handleCancelEdit}
+          />
+        ) : (
+          <Wrapper>
+            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleEdit}>Edit</Button>
+          </Wrapper>
+        )}
+      </td>
+    </tr>
   );
 }
 
-const StyledContainer = styled("div")`
-  background-color: ${(props) => (props.vip ? "green" : "#a3e635")};
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Button = styled("button")`
-  background-color: pink;
-  padding: 7px;
+  background-color: #ea580c;
+  padding: 8px;
   font-size: 15px;
+  border: none;
+  border-radius: 5px;
 `;

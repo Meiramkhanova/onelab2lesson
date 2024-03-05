@@ -9,6 +9,14 @@ export default function Add() {
   const [phone, setPhone] = useState("");
 
   const navigateTo = useNavigate();
+  // const navigateToList = useNavigate();
+
+  const handleClickToMain = () => {
+    navigateTo("/");
+  };
+  const handleClickToList = () => {
+    navigateTo("/list");
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -33,7 +41,9 @@ export default function Add() {
     }
     list.push({ id, name, surname, phone });
     sessionStorage.setItem("list", JSON.stringify(list));
-    navigateTo("/");
+    setName("");
+    setSurname("");
+    setPhone("");
   };
 
   return (
@@ -60,9 +70,19 @@ export default function Add() {
         placeholder="Phone Number"
       />
       <Button onClick={onSave}>Save</Button>
+      <Wrapper>
+        <Button onClick={handleClickToMain}>Main</Button>
+        <Button onClick={handleClickToList}>List</Button>
+      </Wrapper>
     </StyledContainer>
   );
 }
+
+const Wrapper = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+`;
 
 const StyledContainer = styled("div")`
   display: flex;
